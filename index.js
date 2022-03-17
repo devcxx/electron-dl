@@ -86,7 +86,7 @@ function registerListener(session, options, callback = () => {}) {
 		const errorMessage = options.errorMessage || 'The download of {filename} was interrupted';
 
 		if (options.saveAs) {
-			item.setSaveDialogOptions({defaultPath: filePath});
+			item.setSaveDialogOptions({...options.saveOptions, defaultPath: filePath});
 		} else {
 			item.setSavePath(filePath);
 		}
@@ -162,7 +162,7 @@ function registerListener(session, options, callback = () => {}) {
 				}
 
 				if (options.openFolderWhenDone) {
-					shell.showItemInFolder(filePath);
+					shell.showItemInFolder(item.getSavePath());
 				}
 
 				if (typeof options.onCompleted === 'function') {
